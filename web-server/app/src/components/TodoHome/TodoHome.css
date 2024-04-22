@@ -1,0 +1,97 @@
+h1 {
+  font-size: 2em;
+}
+
+button {
+  padding: 4px 24px;
+  border-width: 1px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #eee;
+}
+
+button:hover {
+  background: #ddd;
+}
+
+button:active {
+  position: relative;
+  top: 2px;
+}
+
+input {
+  padding: 4px 12px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+label {
+  margin-left: -18px;
+}
+
+.dimmed {
+  color: #999;
+}
+
+.button-small {
+  padding: 4px 8px;
+}
+
+.todo-container {
+  width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  border-radius: 4px;
+  background: white;
+}
+
+.todo-list-control {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.todo-item {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: 0 6px 12px #0001;
+  background: #fff;
+}
+
+.todo-item > p {
+  flex-grow: 1;
+}
+
+.create-todo-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.value-viewer {
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.value-viewer::before {
+  content: 'ValueViewer';
+  display: block;
+  margin-bottom: 12px;
+  font-size: 80%;
+  font-weight: 700;
+  color: #999;
+}

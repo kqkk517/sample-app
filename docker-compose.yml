@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  web-server:
+    build: ./web-server
+    volumes:
+      - ./web-server:/opt/web-server
+    command: npm start
+    ports:
+      - 3000:3000
+
+  api-server:
+    build: ./api-server
+    volumes:
+      - ./api-server:/opt/api-server
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+    ports:
+      - 8000:8000
+    depends_on:
+      - database
+
+  database:
+    image: postgres:15
+    env_file:
+      - .env
+    volumes:
+      - ./volumes/postgres:/var/lib/postgres/data
+    ports:
+      - 5432:5432
