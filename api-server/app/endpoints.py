@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm.session import Session
 
@@ -9,8 +7,8 @@ from .database import get_session
 router = APIRouter()
 
 
-@router.get("/api/v1/todos", response_model=List[schemas.ToDo])
-def read_todos(session: Session = Depends(get_session)) -> List[models.ToDo]:
+@router.get("/api/v1/todos", response_model=list[schemas.ToDo])
+def read_todos(session: Session = Depends(get_session)) -> list[models.ToDo]:
     todos = crud.read_todos(session)
 
     return todos

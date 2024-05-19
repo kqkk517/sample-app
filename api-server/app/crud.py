@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import HTTPException
 from sqlalchemy import asc
 from sqlalchemy.orm.session import Session
@@ -7,7 +5,7 @@ from sqlalchemy.orm.session import Session
 from . import models
 
 
-def read_todos(session: Session) -> List[models.ToDo]:
+def read_todos(session: Session) -> list[models.ToDo]:
     try:
         todos = session.query(models.ToDo).order_by(asc(models.ToDo.id)).all()
 
@@ -45,9 +43,7 @@ def create_todo(text: str, done: bool, session: Session) -> models.ToDo:
     return todo
 
 
-def update_todo(
-    id: int, text: str, done: bool, session: Session
-) -> models.ToDo:
+def update_todo(id: int, text: str, done: bool, session: Session) -> models.ToDo:
     try:
         todo = session.query(models.ToDo).filter(models.ToDo.id == id).first()
 
