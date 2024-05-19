@@ -3,6 +3,6 @@ uvicorn
 
 databases[postgresql]
 SQLAlchemy
-psycopg2
+psycopg2-binary
 pydantic
 alembic

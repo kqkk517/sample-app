@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   web-server:
     build: ./web-server
@@ -21,14 +19,13 @@ services:
 
   database:
     image: postgres:15
+    platform: linux/amd64
     env_file:
       - .env
-    environment:
-      - TZ=${TZ}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
     volumes:
-      - ./volumes/postgres:${PGDATA}
+      - db-data:${PGDATA}
     ports:
       - 5432:5432
+
+volumes:
+  db-data:
