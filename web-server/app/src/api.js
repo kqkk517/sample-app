@@ -8,7 +8,7 @@ export class TodoApi {
   /** ToDoを全て取得する */
   readItems = async () => {
     return axios
-      .get('/api/todo/get/all')
+      .get('/api/v1/todos')
       .then((response) => response.data)
       .catch((error) => console.log(error));
   };
@@ -16,7 +16,7 @@ export class TodoApi {
   /** 指定したidのToDoを取得する */
   readItem = async (id) => {
     return axios
-      .get(`/api/todo/get/${id}`)
+      .get(`/api/v1/todos/${id}`)
       .then((response) => response.data)
       .catch((error) => console.log(error));
   };
@@ -24,7 +24,7 @@ export class TodoApi {
   /** ToDoを新規作成する */
   createItem = async (item) => {
     return axios
-      .post('/api/todo/create', item)
+      .post('/api/v1/todos', item)
       .then((response) => response.data)
       .catch((error) => console.log(error));
   };
@@ -32,7 +32,7 @@ export class TodoApi {
   /** ToDoを更新する */
   updateItem = async (item) => {
     return axios
-      .put('/api/todo/update', item)
+      .put('/api/v1/todos', item)
       .then((response) => response.data)
       .catch((error) => console.log(error));
   };
@@ -40,7 +40,7 @@ export class TodoApi {
   /** 指定したidのToDoを削除する */
   deleteItem = async (id) => {
     return axios
-      .delete(`/api/todo/delete/${id}`)
+      .delete(`/api/v1/todos/${id}`)
       .then((response) => response.data)
       .catch((error) => console.log(error));
   };
