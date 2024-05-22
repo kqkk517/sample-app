@@ -9,6 +9,8 @@ services:
 
   api-server:
     build: ./api-server
+    env_file:
+      - .env
     volumes:
       - ./api-server:/opt/api-server
     command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
