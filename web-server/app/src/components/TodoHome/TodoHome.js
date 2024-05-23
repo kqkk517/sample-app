@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import './TodoHome.css';
 import { TodoApi } from '../../api';
@@ -46,12 +46,14 @@ const ValueViewer = ({ value }) => {
 
 const TodoHome = () => {
   const [todoItems, setTodoItems] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [keyword, setKeyword] = useState('');
   const [showingDone, setShowingDone] = useState(true);
 
   const reloadTodoItems = async () => {
-    setTodoItems(null);
+    setLoading(true);
     setTodoItems(await todoApi.readItems());
+    setLoading(false);
   };
 
   const filteredTodoItems = todoItems?.filter((item) => {
@@ -60,6 +62,10 @@ const TodoHome = () => {
     }
     return item.text.includes(keyword);
   });
+
+  useEffect(() => {
+    (async () => await reloadTodoItems())();
+  }, []);
 
   return (
     <div className="todo-container">
@@ -81,7 +87,7 @@ const TodoHome = () => {
         <button onClick={() => reloadTodoItems()}>更新</button>
       </div>
 
-      {filteredTodoItems === undefined ? (
+      {loading ? (
         <div className="dimmed">データを取得中です...</div>
       ) : filteredTodoItems?.length === 0 ? (
         <div className="dimmed">該当するToDoはありません</div>
