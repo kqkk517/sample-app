@@ -50,10 +50,43 @@ const TodoHome = () => {
   const [keyword, setKeyword] = useState('');
   const [showingDone, setShowingDone] = useState(true);
 
-  const reloadTodoItems = async () => {
+  const readTodoItems = async () => {
     setLoading(true);
-    setTodoItems(await todoApi.readItems());
-    setLoading(false);
+    try {
+      const items = await todoApi.readItems();
+      setTodoItems(items);
+    } catch (error) {
+      console.error('Failed to read todo items:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const createTodoItem = async (text) => {
+    try {
+      await todoApi.createItem({ text, done: false });
+      readTodoItems();
+    } catch (error) {
+      console.error('Failed to create item:', error);
+    }
+  };
+
+  const updateTodoItem = async (newItem) => {
+    try {
+      await todoApi.updateItem(newItem);
+      readTodoItems();
+    } catch (error) {
+      console.error('Failed to update item:', error);
+    }
+  };
+
+  const deleteTodoItem = async (item) => {
+    try {
+      await todoApi.deleteItem(item.id);
+      readTodoItems();
+    } catch (error) {
+      console.error('Failed to delete item:', error);
+    }
   };
 
   const filteredTodoItems = todoItems?.filter((item) => {
@@ -64,7 +97,7 @@ const TodoHome = () => {
   });
 
   useEffect(() => {
-    (async () => await reloadTodoItems())();
+    (async () => await readTodoItems())();
   }, []);
 
   return (
@@ -84,7 +117,7 @@ const TodoHome = () => {
           onChange={(event) => setShowingDone(event.target.checked)}
         />
         <label htmlFor="showing-done">完了したものも表示する</label>
-        <button onClick={() => reloadTodoItems()}>更新</button>
+        <button onClick={() => readTodoItems()}>更新</button>
       </div>
 
       {loading ? (
@@ -97,25 +130,14 @@ const TodoHome = () => {
             <TodoListItem
               key={item.id}
               item={item}
-              onCheck={async (checked) => {
-                await todoApi.updateItem({ ...item, done: checked });
-                reloadTodoItems();
-              }}
-              onDelete={async () => {
-                await todoApi.deleteItem(item.id);
-                reloadTodoItems();
-              }}
+              onCheck={(checked) => updateTodoItem({ ...item, done: checked })}
+              onDelete={() => deleteTodoItem(item)}
             />
           ))}
         </div>
       )}
 
-      <CreateTodoForm
-        onSubmit={async (text) => {
-          await todoApi.createItem({ text, done: false });
-          reloadTodoItems();
-        }}
-      />
+      <CreateTodoForm onSubmit={(text) => createTodoItem(text)} />
 
       <ValueViewer
         value={{ keyword, todoItems, filteredTodoItems }}
