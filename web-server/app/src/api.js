@@ -7,41 +7,56 @@ axios.defaults.baseURL = 'http://localhost:8000/';
 export class TodoApi {
   /** ToDoを全て取得する */
   readItems = async () => {
-    return axios
-      .get('/api/v1/todos')
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+    try {
+      const response = await axios.get('/api/v1/todos');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to read items:', error);
+      throw new Error('Failed to read items');
+    }
   };
 
   /** 指定したidのToDoを取得する */
   readItem = async (id) => {
-    return axios
-      .get(`/api/v1/todos/${id}`)
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+    try {
+      const response = await axios.get(`/api/v1/todos/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Failed to read item with id ${id}:`, error);
+      throw new Error(`Failed to read item with id ${id}`);
+    }
   };
 
   /** ToDoを新規作成する */
   createItem = async (item) => {
-    return axios
-      .post('/api/v1/todos', item)
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+    try {
+      const response = await axios.post('/api/v1/todos', item);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to create item:', error);
+      throw new Error('Failed to create item');
+    }
   };
 
   /** ToDoを更新する */
   updateItem = async (item) => {
-    return axios
-      .put('/api/v1/todos', item)
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+    try {
+      const response = await axios.put('/api/v1/todos', item);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to update item:', error);
+      throw new Error('Failed to update item');
+    }
   };
 
   /** 指定したidのToDoを削除する */
   deleteItem = async (id) => {
-    return axios
-      .delete(`/api/v1/todos/${id}`)
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+    try {
+      const response = await axios.delete(`/api/v1/todos/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Failed to delete item with id ${id}:`, error);
+      throw new Error(`Failed to delete item with id ${id}`);
+    }
   };
 }
