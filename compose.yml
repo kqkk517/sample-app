@@ -1,19 +1,23 @@
 services:
   web-server:
     build: ./web-server
+    image: web-server:latest
+    container_name: web-server
+    hostname: web-server
     volumes:
       - ./web-server:/opt/web-server
-    command: npm start
     ports:
       - 3000:3000
 
   api-server:
     build: ./api-server
-    env_file:
-      - .env
+    image: api-server:latest
+    container_name: api-server
+    hostname: api-server
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@database:5432/postgres
     volumes:
       - ./api-server:/opt/api-server
-    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
     ports:
       - 8000:8000
     depends_on:
@@ -21,11 +25,15 @@ services:
 
   database:
     image: postgres:15
+    container_name: database
+    hostname: database
     platform: linux/amd64
-    env_file:
-      - .env
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
     volumes:
-      - db-data:${PGDATA}
+      - db-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
 
