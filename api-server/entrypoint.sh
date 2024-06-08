@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # wait for database to be ready
+# https://github.com/vishnubob/wait-for-it
 /usr/local/bin/wait-for-it.sh database:5432 --timeout=60 --strict -- echo "Database is up"
 
 # start app
