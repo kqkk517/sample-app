@@ -5,3 +5,5 @@ COPY ./app/package.json ./app/package-lock.json ./
 RUN npm install
 
 COPY ./app .
+
+ENTRYPOINT [ "npm", "start" ]
