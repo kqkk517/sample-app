@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import './TodoHome.css';
-import { TodoApi } from '../../api';
+import { TodoApi } from '../../utils/api';
 
 const todoApi = new TodoApi();
 
