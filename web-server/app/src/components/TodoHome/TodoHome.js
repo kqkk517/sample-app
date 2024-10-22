@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import './TodoHome.css';
 import { TodoApi } from '../../utils/api';
+import { todoUtil } from '../../utils/todoUtil';
 
 const todoApi = new TodoApi();
 
@@ -89,12 +90,11 @@ const TodoHome = () => {
     }
   };
 
-  const filteredTodoItems = todoItems?.filter((item) => {
-    if (!showingDone && item.done) {
-      return false;
-    }
-    return item.text.includes(keyword);
-  });
+  const filteredTodoItems = todoUtil.filteredTodoItems(
+    todoItems,
+    keyword,
+    showingDone
+  );
 
   useEffect(() => {
     (async () => await readTodoItems())();
