@@ -90,7 +90,7 @@ const TodoHome = () => {
     }
   };
 
-  const filteredTodoItems = todoUtil.filteredTodoItems(
+  const filteredTodoItems = todoUtil.filterTodoItems(
     todoItems,
     keyword,
     showingDone
