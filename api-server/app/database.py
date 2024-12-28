@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 database_url = os.getenv("DATABASE_URL")
 
 engine = create_engine(database_url, echo=False)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionMaker = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
@@ -18,7 +18,7 @@ def get_session() -> Generator:
     session = None
 
     try:
-        session = SessionLocal()
+        session = SessionMaker()
         yield session
 
     except Exception as e:
