@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 # 環境変数から接続先DBのURLを取得する
 database_url = os.getenv("DATABASE_URL")
 
-# DBとのセッションオブジェクトのファクトリクラスを作成する
+# DBセッションオブジェクトのファクトリクラスを作成する
 engine = create_engine(database_url, echo=False)
 SessionMaker = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
@@ -18,9 +18,9 @@ Base = declarative_base()
 
 
 def get_session() -> Generator:
-    """DBとのセッションオブジェクトを作成、管理する
+    """DBセッションオブジェクトを作成、管理する
     Returns:
-        Generator: DBとのセッションオブジェクト
+        Generator: DBセッションオブジェクト
     """
 
     session = None
